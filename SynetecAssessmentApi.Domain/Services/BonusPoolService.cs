@@ -51,8 +51,8 @@ namespace SynetecAssessmentApi.Domain.Services
             //get the total salary budget for the company
             var totalSalary = await _employeeRepo.GetTotalSalary();
             //calculate the bonus allocation for the employee
-            var bonusPercentage = decimal.Divide(employee.Salary,totalSalary);
-            var bonusAllocation = decimal.Multiply(bonusPercentage, result.TotalBonusPoolAmount);
+            var bonusPercentage = employee.Salary / totalSalary;
+            var bonusAllocation = decimal.Round(bonusPercentage * result.TotalBonusPoolAmount, 2);
 
             return new BonusPoolCalculatorResultDto
             {
